@@ -1,0 +1,237 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* COMMON STYLES */
+
+body {
+    background-color: antiquewhite;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    margin: auto;
+    padding: 0 10px 1em 50px;
+    max-width: 1200px;
+    height: auto;
+}
+
+.header {
+    width: 35em;
+    height: 8em;
+    margin: auto;
+}
+
+.header h2, .header h3 {
+    float: left;
+    color: #444444;
+}
+
+/* DRINKS (INDEX.CSHTML) */
+
+.login {
+    float: right;
+    margin-top: -3em;
+    margin-right: -1.3em;
+}
+
+    .login a {
+        font-size: 1.3em;
+        text-decoration: none;
+        color: #444;
+    }
+
+        .login a:visited {
+            color: #444;
+        }
+
+.form {
+    margin: auto;
+    width: 35em;
+    border: 1px solid #666;
+    border-radius: 10px;
+    box-shadow: .2em .2em .5em #999;
+    background-color: #ccc;
+    padding: 1em;
+    overflow: hidden;
+}
+
+.items {
+    display: block;
+    width: 140px;
+    float: left;
+    margin-right: 4px;
+}
+
+    .items .drink label {
+        color: brown;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .items .drink a {
+        text-decoration: none;
+        font-size: 1.3em;
+        font-weight: bold;
+        color: orange;
+    }
+
+        .items .drink a:visited {
+            color: orange;
+        }
+
+.items_set {
+    margin: auto;
+    width: 36em;
+    height: 12em;
+}
+
+hr {
+    width: 35em;
+}
+
+.form .items_set .items table tbody tr td img.picture {
+    width: 120px;
+    height: 120px;
+    opacity: 0.7;
+}
+
+.form .items_set .items table tbody tr td img.picture_inlighted {
+    outline: 2px solid wheat;
+    width: 120px;
+    height: 120px;
+}
+
+    .form .items_set .items table tbody tr td img.picture_inlighted:hover {
+        outline: 3px solid lightyellow;
+    }
+
+/* COINS SECTION (INDEX.CSHTML) */
+.coin {
+    float: left;
+}
+
+    .coin img {
+        margin: 0 5px 0 5px;
+    }
+
+.coins_set {
+    width: 10em;
+}
+
+div.container form.form table.table_coins_set {
+    float: left;
+}
+
+form div.count_screen {
+    font-size: 2em;
+    color: #f5f5f5;
+    display: inline-block;
+    width: 2em;
+    height: 1.5em;
+    border: 2px solid #f5f5f5;
+    background: cornflowerblue;
+    padding: 10px;
+    margin-left: 5px;
+    float: right;
+}
+
+#service_message {
+    width: 10em;
+    height: 3em;
+    font-size: 1em;
+}
+
+.button {
+    background-color: wheat;
+    height: 3em;
+    width: 3em;
+    float: left;
+}
+
+    .button label {
+        color: gray;
+        font-size: 1.5em;
+    }
+
+.button_enlighted a {
+    color: #444;
+    text-decoration: none;
+    font: 1.5em Arial, Helvetica, sans-serif;
+}
+
+    .button_enlighted a:visited {
+        color: #444;
+    }
+
+.button_enlighted {
+    background-color: gold;
+    height: 3em;
+    width: 3em;
+    float: left;
+}
+
+.last_button {
+    width: 8.4em;
+    font-size: 1.2em;
+    border-radius: 5px;
+}
+
+    .last_button a {
+        color: #444;
+        text-decoration: none;
+    }
+
+        .last_button a:visited {
+            color: #444;
+        }
+
+/* COMMON STYLES (ADMIN PAGE) */
+
+.logout {
+    float: right;
+    margin: -3em 2em 0 0;
+}
+
+    .logout a {
+        font-size: 1.6em;
+        text-decoration: none;
+        color: brown;
+    }
+
+        .logout a:visited {
+            color: brown;
+        }
+
+.drinks_management {
+    float: left;
+}
+
+.right_block {
+    float: right;
+}
+
+    .drinks_management a, .right_block a {
+        text-decoration: none;
+        color: #000000;
+    }
+
+        .drinks_management a:visited, .right_block a:visited {
+            color: #000000;
+        }
+
+.drink_edit_view {
+    border: 1px solid chocolate;
+    margin: 0;
+}
+
+.edit_button {
+    width: 6em;
+    cursor: pointer;
+}
+
+.add_button {
+    width: auto;
+}
+
+.right_block table tbody tr td .button_unblock a {
+    color: rebeccapurple;
+}

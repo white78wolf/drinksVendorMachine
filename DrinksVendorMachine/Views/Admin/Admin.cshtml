@@ -1,0 +1,164 @@
+﻿@using DrinksVendorMachine.Controllers
+@model IEnumerable<DrinksVendorMachine.Models.Drink>
+
+@{
+    ViewBag.Title = "Автомат по продаже кофе - админ-панель";
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+}
+
+<h2>Автомат по продаже кофе - админ-панель</h2>
+
+<button class="logout" type="button"><a href="../Logon/Logoff">Выйти</a></button>
+
+<div class="drinks_management">
+    <h3>Управление ассортиментом напитков</h3>
+
+    @foreach (var drink in Model)
+    {
+        using (Html.BeginForm("EditDrink", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(d => drink.DrinkId)
+
+        <div class="drink_edit_view">
+            <table>
+                <tr>
+                    <td>
+                        @Html.Label("Название")
+                    </td>
+                    <td>
+                        @Html.EditorFor(d => drink.Name) <!-- придумать, как блокировать ввод ненужных (потенциально опасных) символов -->
+                    </td>
+                    <td rowspan="3">
+                        @if (drink.ImageData == null)
+                        {
+                            <img src="~/Content/Images/back.jpg" alt="Coffe" class="picture" height="75">
+                        }
+                        else
+                        {
+                            @Html.Raw("<img style='width:75px; height:75px;' src=\"data:image/jpeg;base64,"
+                                      + Convert.ToBase64String(drink.ImageData) + "\" />")
+                        }
+                    </td>
+                    <td>
+                        <input class="add_button" type="file" value="EditDrink" name="image"><!-- КАРТИНКА -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Цена")
+                    </td>
+                    <td>
+                        @Html.EditorFor(d => drink.Price)
+                    </td>
+                    <td>
+                        <input class="edit_button" type="submit" formaction="EditDrink" value="Изменить">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Количество")
+                    </td>
+                    <td>
+                        @Html.EditorFor(d => drink.Quantity)
+                    </td>
+                    <td>
+                        <button class="edit_button" type="button">@Html.ActionLink("Удалить", "DeleteDrink", 
+                                                                      new { drinkId = drink.DrinkId })</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        }
+    }
+</div>
+
+<div class="right_block">
+
+    <h3>Добавление напитка в базу данных</h3>
+    @using (Html.BeginForm("AddDrink", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+        
+        <table>
+            <tr>
+                <td>
+                    @Html.Label("Название")
+                </td>
+                <td>
+                    @Html.TextBox("Name") <!-- придумать, как блокировать ввод ненужных (потенциально опасных) символов -->
+                </td>
+                <td>
+                    <label>Картинка</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Цена")
+                </td>
+                <td>
+                    <input type="number" value="0" name="Price">
+                </td>
+                <td>
+                    <input class="add_button" type="file" value="AddDrink" name="image"><!-- КАРТИНКА -->
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Количество")</td>
+                <td>
+                    <input type="number" value="0" name="Quantity">
+                </td>
+                <td>
+                    <input class="add_button" type="submit" formaction="AddDrink" value="Добавить">
+                </td>
+            </tr>
+        </table>
+    }
+
+    <h3>Управление количеством монет и блокировка</h3>
+    <table>
+        <tr>
+            <th>Ном.</th>
+            <th>К-во</th>
+            <th>Сброс</th>
+            <th>Задать</th>
+            <th>Блокировать</th>
+        </tr>
+        @foreach (var coin in HomeController.Coins)
+        {
+            using (Html.BeginForm("SetCoinNumber", "Admin", FormMethod.Get))
+            {
+            <tr>
+                <td>
+                    <input type="number" value="@coin.Key" name="nominal" readonly="true" style="width: 3em;"/></td>
+                <td>
+                    <input type="number" value="@coin.Value" name="quantity" style="width: 4em;"/></td>
+                <td>
+                    <button type="button">@Html.ActionLink("Сбросить", "ResetCoins", new { nominal = coin.Key })</button></td>
+                <td>
+                    <button type="submit" formaction="SetCoinNumber" name="SetCoinNumber">Задать</button></td>
+                @if (HomeController.CoinsBlocked[coin.Key] == false)
+                {
+                    <td>
+                        <button type="button">@Html.ActionLink("Заблокировать", "BlockCoin", 
+                                                  new { nominal = coin.Key })</button>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <button type="button" class="button_unblock">@Html.ActionLink("Разблокировать", "BlockCoin",
+                                                                         new { nominal = coin.Key })</button>
+                    </td>
+                }
+            </tr>
+            }
+        }
+    </table>
+</div>
+
+<div style="clear: both;"></div>

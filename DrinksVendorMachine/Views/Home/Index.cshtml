@@ -1,0 +1,108 @@
+﻿@using DrinksVendorMachine.Controllers
+@model IEnumerable<DrinksVendorMachine.Models.Drink>
+
+@{
+    ViewBag.Title = "Автомат по продаже кофе";
+}
+
+<div class="header">
+    <h2>Автомат по продаже кофе</h2>
+    <h3>Введите нужную сумму и выберите напиток</h3>
+    <button class="login" type="button"><a href="../Logon/Login">Админ-панель</a></button>
+</div>
+
+@using (Html.BeginForm("", "Home", FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="items_set">
+        @foreach (var drink in Model)
+        {
+            <div class="items">
+                <table>
+                    <tr>
+                        <td>
+                            @if (drink.Quantity == 0 || HomeController.Sum < drink.Price)
+                            {
+                                if (drink.ImageData == null)
+                                {
+                                <img src="~/Content/Images/back.jpg" alt="Coffee" class="picture" height="120">
+                                }
+                                else
+                                {
+                                @Html.Raw("<img class='picture' height='120' src=\"data:image/jpeg;base64,"
+                                              + Convert.ToBase64String(drink.ImageData) + "\" />")
+                                }
+                            }
+                            else
+                            {
+                                if (drink.ImageData == null)
+                                {
+                                <a href="Home/ChooseDrink?DrinkId=@Convert.ToString(drink.DrinkId)">
+                                    <img src="~/Content/Images/back.jpg" alt="Coffee" class="picture_inlighted" height="120"></a>
+                                    HomeController.Message = "Выберите напиток";
+                                }
+                                else
+                                {
+                                <a href="Home/ChooseDrink/?DrinkId=@Convert.ToString(drink.DrinkId)">
+                                    @Html.Raw("<img class='picture_inlighted' height='120' src=\"data:image/jpeg;base64,"
+                                                  + Convert.ToBase64String(drink.ImageData) + "\" />")
+                                </a>
+                                    HomeController.Message = "Выберите напиток";
+                                }
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Label(Convert.ToString(drink.Name))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Label("Цена: ")
+                            @Html.DisplayTextFor(x => drink.Price)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+    <hr />
+
+    <table class="table_coins_set">
+        <tr>
+            <td>
+                <div class="coins_set">
+
+                    @foreach (var coin in HomeController.CoinsBlocked)
+                    {
+                        if (HomeController.CoinsBlocked[coin.Key])
+                        {
+                            <button class="button" type="button" disabled="true">@Html.Label(coin.Key.ToString())</button>
+                        }
+                        else
+                        {
+                            <button class="button_enlighted" type="button">@Html.ActionLink(coin.Key.ToString(), "DropCoin", 
+                                                                               new {nominal = coin.Key})</button>
+                        }
+                    }
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="last_button" type="button">@Html.ActionLink("Забрать сдачу", "OddMoney")</button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="count_screen" id="service_message">
+        @Html.Label(HomeController.Message)
+    </div>
+
+    <div class="count_screen">
+        @Html.Label(Convert.ToString(HomeController.Sum))
+    </div>
+
+    
+}
