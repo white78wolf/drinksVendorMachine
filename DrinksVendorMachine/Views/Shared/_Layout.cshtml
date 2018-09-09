@@ -2,11 +2,13 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" type="text/css" href="~/Content/Styles/index.css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Styles/index.css")" />
+    @RenderSection("Styles", false)
 </head>
 <body>
-<div class="container">
-    @RenderBody()
-</div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", false)
 </body>
 </html>
