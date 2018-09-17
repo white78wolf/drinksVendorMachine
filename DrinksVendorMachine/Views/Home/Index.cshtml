@@ -7,8 +7,8 @@
 
 <div class="header">
     <h2>Автомат по продаже кофе</h2>
-    <h3>Введите нужную сумму и выберите напиток</h3>
-    <button class="login" type="button"><a href="../Logon/Login">Админ-панель</a></button>
+    <h3>Введите нужную сумму и выберите напиток</h3>    
+    <button class="login" type="button">@Html.ActionLink("Админ-панель", "../Logon/Login")</button>
 </div>
 
 @using (Html.BeginForm("", "Home", FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))

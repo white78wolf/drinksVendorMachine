@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DrinksVendorMachine.Models.Repository
 {
@@ -62,6 +63,6 @@ namespace DrinksVendorMachine.Models.Repository
         {
             _context.Drinks.Remove(drink);
             _context.SaveChanges();
-        }
+        }        
     }
 }

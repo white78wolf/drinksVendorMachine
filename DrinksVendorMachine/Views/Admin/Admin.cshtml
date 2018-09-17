@@ -15,10 +15,7 @@
 
 <h2>Автомат по продаже кофе - админ-панель</h2>
 
-<!--<button class="logout" type="button"><a href="../Logon/Logoff">Выйти</a></button>-->
-<button class="logout" type="button">
-    <a href="@Url.Content("../Logon/Logoff")">Выйти</a>
-</button>
+<button class="logout" type="button">@Html.ActionLink("Выйти", "../Logon/Logoff")</button>
 
 <div class="drinks_management">
     <h3>Управление ассортиментом напитков</h3>
